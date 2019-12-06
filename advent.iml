@@ -13,6 +13,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="scala-sdk-2.13.1" level="application" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.scalatest:scalatest_2.13:3.2.0-M2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.scala-lang:scala-library:2.13.1" level="project" />
@@ -33,6 +34,5 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.scalatest:scalatest-shouldmatchers_2.13:3.2.0-M2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.scalatest:scalatest-mustmatchers_2.13:3.2.0-M2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.scala-lang:scala-reflect:2.13.1" level="project" />
-    <orderEntry type="library" name="scala-sdk-2.13.1" level="application" />
   </component>
 </module>
