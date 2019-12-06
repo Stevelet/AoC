@@ -4,8 +4,7 @@ import parsing.Parser
 
 object main {
   def main(args: Array[String]): Unit = {
-    Parser.parseToLines("puzzle5.txt").reduce((l, r) => l + r)
-    file.close()
+    val lines = Parser.parseToLines("puzzle5.txt").reduce((l, r) => l + r)
 
     val instructions = lines.split(',').map((i : String) => Integer.parseInt(i.toString)).toList
 

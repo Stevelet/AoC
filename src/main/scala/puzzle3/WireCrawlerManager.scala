@@ -17,11 +17,14 @@ object WireCrawlerManager {
   private def tupleDistance(tuple: (Int, Int)): Int =
     Math.abs(tuple._1) + Math.abs(tuple._2)
 
-  def getCrossings(wires: List[String]): List[((Int, Int), Int)] =
-    wires.map(_.split(',').toList).flatMap(
+  def getCrossings(wires: List[String]): List[((Int, Int), Int)] = {
+    val gridList = wires.map(_.split(',').toList).flatMap(
       new WireCrawler(_).traceWire().getGridMap.toList
-    ).groupBy(_._1).map((t : ((Int, Int), List[Int])) => (t._1, t._2.map(_._2).sum, t._2.length)).toList.filter(_._3 > 1)
-      .map((t : (Int, Int)) => (t._1, t._2))
+    )
+
+    gridList.groupBy(_._1).map((t : ((Int, Int), List[((Int, Int), Int)])) => (t._1, t._2.map(_._2).sum, t._2.length)).toList.filter(_._3 > 1)
+      .map(t => (t._1, t._2))
+  }
 
   def getRangeTuple(list: List[((Int, Int), Int)]): (Int, Int, Int, Int) = {
     (list.map(_._1._1).min, list.map(_._1._1).max, list.map(_._1._2).min, list.map(_._1._2).max)
