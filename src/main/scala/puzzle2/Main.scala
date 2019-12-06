@@ -1,12 +1,10 @@
 package puzzle2
 
-import scala.io.Source
+import parsing.Parser
 
 object Main {
   def main(args: Array[String]): Unit = {
-    val filename = "/home/steve/Documents/libs/FSGSog/advent/src/main/resources/puzzle2.txt"
-    val file = Source.fromFile(filename)
-    val lines = file.getLines().toList.reduce((l, r) => l + r)
+    val lines = Parser.parseToLines("puzzle2.txt").reduce((l, r) => l + r)
     val program = IntCodeProgramFactory.createIntCodeProgram(lines)
 
     for (x <- 0 to 100) {

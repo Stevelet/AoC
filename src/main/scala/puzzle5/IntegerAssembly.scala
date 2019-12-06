@@ -1,15 +1,13 @@
 package puzzle5
 
-import scala.io.Source
+import parsing.Parser
 
 object main {
   def main(args: Array[String]): Unit = {
-    val filename = "/home/steve/Documents/libs/FSGSog/advent/src/main/resources/puzzle5.txt"
-    val file = Source.fromFile(filename)
-    val lines = file.getLines().toList.reduce((l, r) => l + r)
+    Parser.parseToLines("puzzle5.txt").reduce((l, r) => l + r)
     file.close()
 
-    val instructions = lines.split(',').map(i => Integer.parseInt(i.toString)).toList
+    val instructions = lines.split(',').map((i : String) => Integer.parseInt(i.toString)).toList
 
     val assembly = new IntegerAssembly(instructions.toArray)
 
@@ -30,14 +28,14 @@ class IntegerAssembly(memory: Array[Int]) {
   var output = ""
 
   val operations: Map[Int, Operation] = Map(
-    1 -> Operation(2, 1, (arguments, outIndex) => memory(outIndex) = arguments(0) + arguments(1)),
-    2 -> Operation(2, 1, (arguments, outIndex) => memory(outIndex) = arguments(0) * arguments(1)),
+    1 -> Operation(2, 1, (arguments, outIndex) => memory(outIndex) = arguments.head + arguments(1)),
+    2 -> Operation(2, 1, (arguments, outIndex) => memory(outIndex) = arguments.head * arguments(1)),
     3 -> Operation(0, 1, (_, outIndex) => memory(outIndex) = scala.io.StdIn.readInt()),
-    4 -> Operation(1, 0, (arguments, _) => output += arguments(0).toString),
-    5 -> Operation(2, 0, (arguments, _) => if (arguments(0) != 0) instructionPointer = arguments(1)),
-    6 -> Operation(2, 0, (arguments, _) => if (arguments(0) == 0) instructionPointer = arguments(1)),
-    7 -> Operation(2, 1, (arguments, outIndex) => memory(outIndex) = if (arguments(0) < arguments(1)) 1 else 0),
-    8 -> Operation(2, 1, (arguments, outIndex) => memory(outIndex) = if (arguments(0) == arguments(1)) 1 else 0),
+    4 -> Operation(1, 0, (arguments, _) => output += arguments.head.toString),
+    5 -> Operation(2, 0, (arguments, _) => if (arguments.head != 0) instructionPointer = arguments(1)),
+    6 -> Operation(2, 0, (arguments, _) => if (arguments.head == 0) instructionPointer = arguments(1)),
+    7 -> Operation(2, 1, (arguments, outIndex) => memory(outIndex) = if (arguments.head < arguments(1)) 1 else 0),
+    8 -> Operation(2, 1, (arguments, outIndex) => memory(outIndex) = if (arguments.head == arguments(1)) 1 else 0),
     99 -> Operation(0, 0, (_, _) => done = true)
   )
 

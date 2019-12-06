@@ -21,7 +21,7 @@ object Graph {
 
     val map = lines.map(_.split(')')).map(t => (t(1), t(0))).toMap
 
-    println(map.map(t => getPathToStart(t._1, map).length - 1).sum)
+    println(map.map((t : (String, String)) => getPathToStart(t._1, map).length - 1).sum)
     println(findCommonRoot("YOU", "SAN", map))
   }
 }

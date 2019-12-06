@@ -2,15 +2,13 @@ package puzzle3
 
 import java.io.{BufferedWriter, File, FileWriter}
 
-import scala.io.Source
+import parsing.Parser
 
 object WireCrawlerManager {
   def main(args: Array[String]): Unit = {
-    val filename = "/home/steve/Documents/libs/FSGSog/advent/src/main/resources/puzzle3.txt"
-    val file = Source.fromFile(filename)
-    val lines = file.getLines().toList
+    val lines = Parser.parseToLines("puzzle3.txt")
 
-    val writer = new BufferedWriter(new FileWriter(new File("/home/steve/Documents/libs/FSGSog/advent/src/main/resources/puzzle3.txt")))
+    val writer = new BufferedWriter(new FileWriter(new File(Parser.resourcePath + "puzzle3.txt")))
     writer.write(drawWiringDiagram(lines))
     writer.flush()
     writer.close()
@@ -22,7 +20,8 @@ object WireCrawlerManager {
   def getCrossings(wires: List[String]): List[((Int, Int), Int)] =
     wires.map(_.split(',').toList).flatMap(
       new WireCrawler(_).traceWire().getGridMap.toList
-    ).groupBy(_._1).map(t => (t._1, t._2.map(_._2).sum, t._2.length)).toList.filter(_._3 > 1).map(t => (t._1, t._2))
+    ).groupBy(_._1).map((t : ((Int, Int), List[Int])) => (t._1, t._2.map(_._2).sum, t._2.length)).toList.filter(_._3 > 1)
+      .map((t : (Int, Int)) => (t._1, t._2))
 
   def getRangeTuple(list: List[((Int, Int), Int)]): (Int, Int, Int, Int) = {
     (list.map(_._1._1).min, list.map(_._1._1).max, list.map(_._1._2).min, list.map(_._1._2).max)

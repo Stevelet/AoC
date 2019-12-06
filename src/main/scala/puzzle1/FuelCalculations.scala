@@ -1,15 +1,10 @@
 package puzzle1
 
-import scala.io.Source
+import parsing.Parser
 
 object FuelCalculations {
   def main(args: Array[String]): Unit = {
-    val filename = "/home/steve/Documents/libs/FSGSog/advent/src/main/resources/puzzle1.txt"
-    val file = Source.fromFile(filename)
-    val lines = file.getLines().toList
-    file.close()
-
-    val values = lines.map(s => Integer.parseInt(s))
+    val values = Parser.parseToLines("puzzle1.txt").map(s => Integer.parseInt(s))
     val required_fuel1 = values.map(_ / 3 - 2).sum
     println(required_fuel1)
 
