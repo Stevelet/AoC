@@ -22,7 +22,9 @@ object WireCrawlerManager {
       new WireCrawler(_).traceWire().getGridMap.toList
     )
 
-    gridList.groupBy(_._1).map((t : ((Int, Int), List[((Int, Int), Int)])) => (t._1, t._2.map(_._2).sum, t._2.length)).toList.filter(_._3 > 1)
+    gridList.groupBy(_._1)
+      .map((t: ((Int, Int), List[((Int, Int), Int)])) => (t._1, t._2.map(_._2).sum, t._2.length))
+      .toList.filter(_._3 > 1)
       .map(t => (t._1, t._2))
   }
 
